@@ -1,14 +1,33 @@
 from django.contrib import admin
 
-from .models import UserFoodgram
+from .models import Subscription, UserFoodgram
 
 
-class UserAdmin(admin.ModelAdmin):
-    list_display = ('username', 'email', 'first_name', 'last_name')
-    search_fields = ('username', 'email')
-    list_filter = ('first_name', 'last_name')
-    ordering = ('username', )
-    empty_value_display = '-пусто-'
+@admin.register(UserFoodgram)
+class UserFoodgramAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'username',
+        'first_name',
+        'last_name',
+        'email',
+    )
+    search_fields = (
+        'email',
+        'username',
+        'first_name',
+    )
 
 
-admin.site.register(UserFoodgram, UserAdmin)
+@admin.register(Subscription)
+class SubscriptionAdmin(admin.ModelAdmin):
+    list_display = (
+        'user',
+        'author'
+    )
+    search_fields = (
+        'user',
+    )
+
+
+# admin.site.register(UserFoodgram, UserFoodgramAdmin)

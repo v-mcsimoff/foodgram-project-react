@@ -1,29 +1,32 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.core.validators import RegexValidator
 from django.db.models import UniqueConstraint
 
 
 class UserFoodgram(AbstractUser):
     """Модель пользователя."""
-    password = models.CharField('password', max_length=150)
+    username = models.CharField(
+        max_length=150,
+        verbose_name='Никнейм',
+        unique=True,
+        validators=[RegexValidator(
+            regex=r'^[\w.@+-]+$',
+            message='Имя пользователя содержит недопустимый символ'
+        )]
+    )
+    first_name = models.CharField('Имя', max_length=150, blank=False)
+    last_name = models.CharField('Фамилия', max_length=150, blank=False)
+    email = models.EmailField('Электронная почта', blank=False, unique=True)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
-    first_name = models.CharField('first name', max_length=150, blank=False)
-    last_name = models.CharField('last name', max_length=150, blank=False)
-    email = models.EmailField('email address', blank=False, unique=True)
 
     class Meta:
-        ordering = ('id', )
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
-        constraints = [
-            models.UniqueConstraint(
-                fields=('username', 'email'), name='username_email_unique'
-            )
-        ]
 
-    def __str__(self):
-        return self.username
+    # def __str__(self):
+    #     return self.username
 
 
 class Subscription(models.Model):
@@ -42,10 +45,14 @@ class Subscription(models.Model):
     )
 
     class Meta:
-        ordering = ('-id', )
-        UniqueConstraint(name='unique_subscribing', fields=['user', 'author'])
         verbose_name = 'Подписка'
         verbose_name_plural = 'Подписки'
+        constraints = [
+            UniqueConstraint(
+                fields=('user', 'author'),
+                name='unique_follow'
+            )
+        ]
 
-    def __str__(self) -> str:
-        return f"{self.user} подписан на {self.author}"
+    def __str__(self):
+        return f"Подписка {self.user.username} на {self.author.username}"
