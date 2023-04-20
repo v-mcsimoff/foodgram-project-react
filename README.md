@@ -36,4 +36,5 @@
 ## Данные для входа в админку
 
 Email address: admin@yandex.ru
+Login: Admin1
 Password: Ad123123Min
