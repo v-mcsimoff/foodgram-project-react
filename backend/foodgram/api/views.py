@@ -14,7 +14,7 @@ from recipes import models
 
 
 class IngredientViewSet(mixins.RetrieveListViewSet):
-    """Обработка операций с ингредиентами."""
+    """Processing of operations with ingredients."""
 
     queryset = models.Ingredient.objects.all()
     serializer_class = serializers.IngredientListSerializer
@@ -25,7 +25,7 @@ class IngredientViewSet(mixins.RetrieveListViewSet):
 
 
 class TagViewSet(mixins.RetrieveListViewSet):
-    """Обработка операций с тегами."""
+    """Processing of operations with tags."""
 
     queryset = models.Tag.objects.all()
     serializer_class = serializers.TagSerializer
@@ -34,7 +34,7 @@ class TagViewSet(mixins.RetrieveListViewSet):
 
 
 class RecipeViewSet(viewsets.ModelViewSet):
-    """Обработка операций с рецептами."""
+    """Processing of operations with recipe."""
 
     filter_backends = (DjangoFilterBackend,)
     filterset_class = filters.RecipeFilter
@@ -109,7 +109,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=['post', 'delete'], name='favorite')
     def favorite(self, request, pk=None):
-        """Обработка операций с избранным."""
+        """Processing of operations with favorite."""
         return self._recipes_list(
             request,
             serializers.FavoritedSerializer,
@@ -118,7 +118,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=['post', 'delete'], name='favorite')
     def shopping_cart(self, request, pk=None):
-        """Обработка операций с корзиной."""
+        """Processing of operations with the cart."""
         return self._recipes_list(
             request,
             serializers.ShoppingCartSerializer,
@@ -127,7 +127,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
 
 
 class UserViewSet(viewsets.ModelViewSet):
-    """Обработка операций с пользователями."""
+    """Processing of operations with users."""
 
     queryset = serializers.User.objects.all()
 
@@ -181,7 +181,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=['post', 'delete'], name='follow')
     def subscribe(self, request, pk=None):
-        """Обработка операций с подписками."""
+        """Processing of operations with subscriptions."""
         user = self.request.user
         author = get_object_or_404(models.User, id=self.kwargs.get('pk'))
         if request.method == 'POST':
@@ -206,7 +206,7 @@ class UserViewSet(viewsets.ModelViewSet):
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def get_token(request):
-    """Создание токена."""
+    """Token creation."""
 
     email = request.data.get('email')
     password = request.data.get('password')
@@ -225,7 +225,7 @@ def get_token(request):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def logout_token(request):
-    """Создание токена."""
+    """Logout token creation."""
     token = Token.objects.get(user=request.user)
     token.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
