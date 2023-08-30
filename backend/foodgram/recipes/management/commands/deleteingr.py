@@ -4,7 +4,7 @@ from recipes.models import Ingredient, MeasurementUnit
 
 
 class Command(BaseCommand):
-    help = 'Удаляет объекты из БД.'
+    help = 'Removes objects from the database.'
 
     def handle(self, *args, **kwargs):
 
@@ -13,4 +13,4 @@ class Command(BaseCommand):
         meas.delete()
         ings.delete()
 
-        self.stdout.write('Объекты удалены из базы данных.')
+        self.stdout.write('Objects removed from the database.')
