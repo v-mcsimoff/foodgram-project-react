@@ -1,39 +1,39 @@
 # Foodgram
 
- Продуктовый помощник - это онлайн-сервис и API для него. На этом сервисе пользователи смогут публиковать рецепты, подписываться на публикации других пользователей, добавлять понравившиеся рецепты в список «Избранное», а перед походом в магазин скачивать сводный список продуктов, необходимых для приготовления одного или нескольких выбранных блюд.
+ Foodgram Assistant is an online service and API for it. On this service, users will be able to publish recipes, subscribe to other users' publications, add favorite recipes to the "Favorites" list, and download a consolidated list of products needed to prepare one or more selected dishes before going to the store.
 
-## О проекте 
+## About the project 
 
-- Проект завернут в Docker-контейнерах;
-- Проект развернут на сервере http://51.250.17.104/
+- The project is wrapped in Docker containers;
+- The project is deployed on a server http://51.250.17.104/
   
-## Стек технологий
+## Technologies
 - Python
 - Django
 - Django REST Framework
 - PostgreSQL
 - Docker
 
-## Зависимости
-- Перечислены в файле backend/requirements.txt
+## Dependencies
+- Listed in the file backend/requirements.txt
 
 
-## Для запуска на собственном сервере
+## To launch on your own server
 
-1. Установите на сервере `docker` и `docker-compose`
-2. Создайте файл `/infra/.env` Шаблон для заполнения файла нахоится в `/infra/.env.example`
-3. Из директории `/infra/` выполните команду `docker-compose up -d --build`
-5. Выполните миграции `docker-compose exec -it web python manage.py migrate`
-6. Создайте Администратора `docker-compose exec -it web python manage.py createsuperuser`
-7. Соберите статику `docker-compose exec web python manage.py collectstatic --no-input`
+1. Install `docker` and `docker-compose` on the server
+2. Create the file `/infra/.env` The template for filling the file is located in `/infra/.env.example`.
+3. From the `/infra/` directory, run the `docker-compose up -d --build` command
+5. Perform migrations `docker-compose exec -it web python manage.py migrate`
+6. Create a superuser `docker-compose exec -it web python manage.py createsuperuser`
+7. Collect static files `docker-compose exec web python manage.py collectstatic --no-input`
 
-8. Документация к API находится по адресу: <http://localhost/api/docs/redoc.html>.
+8. Documentation for the API is available at: <http://localhost/api/docs/redoc.html>.
 
-## Автор
+## Author
 
-Владимир Максимов
+Vladimir Maksimov
 
-## Данные для входа в админку
+## Admin login details
 
 Email address: admin@yandex.ru
 Login: Admin1
