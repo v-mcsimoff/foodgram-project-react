@@ -12,7 +12,7 @@ User = get_user_model()
 
 
 class Base64ImageField(serializers.ImageField):
-    """Сериализатор для декодирования картинок."""
+    """Serializer for decoding images."""
 
     def to_internal_value(self, data):
         if isinstance(data, str) and data.startswith('data:image'):
@@ -24,7 +24,7 @@ class Base64ImageField(serializers.ImageField):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    """Сериализатор пользователей."""
+    """Users serializer."""
 
     is_subscribed = serializers.SerializerMethodField()
 
@@ -51,7 +51,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class UserCreateSerializer(serializers.ModelSerializer):
-    """Сериализатор создания пользователей."""
+    """User creation serializer."""
 
     class Meta:
         fields = (
@@ -72,7 +72,7 @@ class UserCreateSerializer(serializers.ModelSerializer):
 
 
 class IngredientSerializer(serializers.ModelSerializer):
-    """Сериализатор ингредиентов в рецепте."""
+    """Serializer of ingredients in a recipe."""
 
     measurement_unit = serializers.CharField(
         source='ingredient.measurement_unit',
@@ -88,13 +88,13 @@ class IngredientSerializer(serializers.ModelSerializer):
     def validate_amount(self, value):
         if value < 0:
             raise serializers.ValidationError(
-                'Количество ингредиента не может быть отрицательным!'
+                'The amount of the ingredient cannot be negative!'
             )
         return value
 
 
 class IngredientListSerializer(serializers.ModelSerializer):
-    """Сериализатор ингредиентов."""
+    """Ingredient serializer."""
 
     measurement_unit = serializers.CharField(
         source='measurement_unit.name',
@@ -107,7 +107,7 @@ class IngredientListSerializer(serializers.ModelSerializer):
 
 
 class TagSerializer(serializers.ModelSerializer):
-    """Сериализатор тегов."""
+    """Tag serializer."""
 
     class Meta:
         fields = '__all__'
@@ -115,7 +115,7 @@ class TagSerializer(serializers.ModelSerializer):
 
 
 class RecipeSerializer(serializers.ModelSerializer):
-    """Сериализатор рецептов."""
+    """Recipe serializer."""
 
     author = UserSerializer(read_only=True)
     ingredients = IngredientSerializer(many=True, read_only=True)
@@ -149,7 +149,7 @@ class RecipeSerializer(serializers.ModelSerializer):
 
 
 class RecipeWriteSerializer(serializers.ModelSerializer):
-    """Сериализатор для записи рецептов."""
+    """Serializer for recipe entry."""
 
     author = UserSerializer(
         read_only=True
@@ -169,7 +169,7 @@ class RecipeWriteSerializer(serializers.ModelSerializer):
     def validate_author(self, value):
         if value != self.context['request'].user:
             raise serializers.ValidationError(
-                'Нельзя редактировать чужие рецепты!'
+                'Unable to edit other users' recipes!'
             )
         return value
 
@@ -179,14 +179,14 @@ class RecipeWriteSerializer(serializers.ModelSerializer):
             id_list.append(ingredient['ingredient']['id'])
         if len(id_list) != len(set(id_list)):
             raise serializers.ValidationError(
-                'Нельзя добавлять одинаковые ингредиенты!'
+                'Same ingredients should not be added!'
             )
         return value
 
     def validate_cooking_time(self, value):
         if value < 0:
             raise serializers.ValidationError(
-                'Время приготовления не может быть отрицательным!'
+                'Cooking time cannot be negative!'
             )
         return value
 
@@ -227,7 +227,7 @@ class RecipeWriteSerializer(serializers.ModelSerializer):
 
 
 class ShoppingCartSerializer(serializers.ModelSerializer):
-    """"Сериализатор корзины."""
+    """"Cart serializer."""
 
     class Meta:
         fields = '__all__'
@@ -241,7 +241,7 @@ class ShoppingCartSerializer(serializers.ModelSerializer):
 
 
 class FavoritedSerializer(serializers.ModelSerializer):
-    """"Сериализатор корзины."""
+    """"Favorite serializer."""
 
     class Meta:
         fields = '__all__'
@@ -255,7 +255,7 @@ class FavoritedSerializer(serializers.ModelSerializer):
 
 
 class FollowingSerializer(serializers.ModelSerializer):
-    """"Сериализатор корзины."""
+    """"Following users serializer."""
 
     class Meta:
         fields = '__all__'
@@ -270,13 +270,13 @@ class FollowingSerializer(serializers.ModelSerializer):
     def validate_author(self, value):
         if value == self.initial_data['user']:
             raise serializers.ValidationError(
-                'Нельзя подписаться на самого себя!'
+                'You can't subscribe to yourself!'
             )
         return value
 
 
 class RecipeSubSerializer(serializers.ModelSerializer):
-    """Сериализатор рецептов."""
+    """Serializer for recipe preview."""
 
     class Meta:
         fields = ('id', 'name', 'image', 'cooking_time', )
@@ -284,7 +284,7 @@ class RecipeSubSerializer(serializers.ModelSerializer):
 
 
 class UserSubsrcibeSerializer(serializers.ModelSerializer):
-    """Сериализатор для пользователя после подписки."""
+    """Serializer for user after subscription."""
 
     is_subscribed = serializers.SerializerMethodField()
     recipes = serializers.SerializerMethodField()
@@ -328,7 +328,7 @@ class UserSubsrcibeSerializer(serializers.ModelSerializer):
 
 
 class TokenSerializer(serializers.ModelSerializer):
-    """Проверка токена."""
+    """Token check."""
 
     class Meta:
         fields = ('email', 'password')
