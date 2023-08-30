@@ -6,7 +6,7 @@ from recipes.models import Ingredient, MeasurementUnit
 
 
 class Command(BaseCommand):
-    help = 'Загружает объекты и таблиц csv в БД.'
+    help = 'Loads objects and csv tables to the database.'
 
     def handle(self, *args, **kwargs):
 
@@ -28,4 +28,4 @@ class Command(BaseCommand):
                 )
                 ingredient.save()
 
-        self.stdout.write('Объекты загруженны в базу данных.')
+        self.stdout.write('Objects loaded to the database.')
