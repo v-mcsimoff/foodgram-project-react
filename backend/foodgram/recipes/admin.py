@@ -8,7 +8,7 @@ User = get_user_model()
 
 @admin.register(models.Recipe)
 class RecipeAdmin(admin.ModelAdmin):
-    """Параметры отображения модели рецепта."""
+    """Parameters of the recipe model display."""
 
     list_display = (
         'id',
@@ -16,24 +16,24 @@ class RecipeAdmin(admin.ModelAdmin):
         'author',
     )
     search_fields = ('author', 'name', 'tegs', )
-    empty_value_display = '-пусто-'
+    empty_value_display = '-empty-'
 
 
 @admin.register(models.Ingredient)
 class IngredientAdmin(admin.ModelAdmin):
-    """Параметры отображения модели ингредиента."""
+    """Parameters of the ingredient model display."""
 
     list_display = (
         'id',
         'name',
     )
     search_fields = ('name', )
-    empty_value_display = '-пусто-'
+    empty_value_display = '-empty-'
 
 
 @admin.register(models.Tag)
 class TagAdmin(admin.ModelAdmin):
-    """Параметры отображения модели тега."""
+    """Parameters of the tag model display."""
 
     list_display = (
         'id',
@@ -47,7 +47,7 @@ admin.site.unregister(User)
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    """Параметры отображения модели пользователя."""
+    """Parameters of the user model display."""
 
     list_display = (
         'id',
@@ -57,7 +57,7 @@ class UserAdmin(admin.ModelAdmin):
         'email'
     )
     search_fields = ('email', 'username', )
-    empty_value_display = '-пусто-'
+    empty_value_display = '-empty-'
 
 
 admin.site.register(models.RecipeTag)
