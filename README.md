@@ -8,8 +8,8 @@
 - The project is deployed on a server http://51.250.17.104/
   
 ## Technologies
-- Python
-- Django
+- Python 3.9
+- Django 2.2
 - Django REST Framework
 - PostgreSQL
 - Docker
