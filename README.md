@@ -35,6 +35,6 @@ Vladimir Maksimov
 
 ## Admin login details
 
-Email address: admin@yandex.ru
+Email: admin@yandex.ru
 Login: Admin1
 Password: Ad123123Min
