@@ -5,7 +5,6 @@
 ## About the project 
 
 - The project is wrapped in Docker containers;
-- The project is deployed on a server http://51.250.17.104/
   
 ## Technologies
 - Python 3.9
