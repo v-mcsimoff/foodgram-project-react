@@ -9,7 +9,7 @@
   
 ## Technologies
 - Python 3.9
-- Django 2.2
+- Django 4.1
 - Django REST Framework
 - PostgreSQL
 - Docker
